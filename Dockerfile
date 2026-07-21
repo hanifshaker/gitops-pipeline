@@ -5,7 +5,7 @@ WORKDIR /app
 # Copy app.py from the local machine and into /app
 COPY app.py .
 # Install dependencies to run app.py
-RUN pip install --no-cache-dir flask requests
+RUN pip install --no-cache-dir flask
 # Documents which port the container will listen on at runtime
 EXPOSE 8080
 # These commands will automatically run once the container starts
