@@ -21,3 +21,4 @@ resource "minikube_cluster" "minikube_docker" {
         "storage-provisioner"
     ]
 }
+
