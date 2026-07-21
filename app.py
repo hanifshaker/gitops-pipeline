@@ -8,34 +8,42 @@ app = Flask(__name__)
 @app.route("/")
 def main():
 
-    # Change timezone accordingly
-    current_time = datetime.now(ZoneInfo("Asia/Kuala_Lumpur")).strftime("%Y-%m-%d %H:%M:%S")
+    current_time = datetime.now(
+        ZoneInfo("Asia/Kuala_Lumpur")
+    ).strftime("%Y-%m-%d %H:%M:%S")
 
-    # Get client IP
-    ip = request.headers.get("X-Forwarded-For", request.remote_addr)
-
-    # If behind proxy/load balancer
-    ip = ip.split(",")[0].strip()
+    # Tailscale/client IP
+    client_ip = request.headers.get(
+        "X-Forwarded-For",
+        request.remote_addr
+    ).split(",")[0].strip()
 
     geo = {}
 
     try:
-        response = requests.get(
-            f"http://ip-api.com/json/{ip}",
+        # Actual public internet IP
+        public_ip = requests.get(
+            "https://api.ipify.org",
             timeout=3
-        )
+        ).text.strip()
 
-        geo = response.json()
+        geo = requests.get(
+            f"https://ip-api.com/json/{public_ip}",
+            timeout=3
+        ).json()
 
-    except Exception:
-        pass
+    except Exception as e:
+        print("Geo error:", e)
+        public_ip = "Unknown"
 
     return f"""
     <h2>GitOps Pipeline App</h2>
 
     <b>Current Time:</b> {current_time}<br><br>
 
-    <b>Public IP:</b> {ip}<br>
+    <b>Client IP (Tailscale):</b> {client_ip}<br>
+
+    <b>Public IP:</b> {public_ip}<br>
 
     <b>City:</b> {geo.get('city','Unknown')}<br>
 
@@ -45,6 +53,3 @@ def main():
 
     <b>ISP:</b> {geo.get('isp','Unknown')}
     """
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
