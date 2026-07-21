@@ -31,9 +31,6 @@ GitOps automates deployments and enforces changes through merge or pull requests
  - **ArgoCD:** Continuously monitors the Git repo and automatically syncs the k8s cluster with the latest Helm chart (GitOps).
 </div>
 
-> [!TIP]
-> ***GitHub Actions must be granted read and write permissions which can be configured in your repo's Settings.***
-
 
 ## :warning: Prerequisites
 > [!IMPORTANT]
