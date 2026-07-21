@@ -1,0 +1,20 @@
+# This file installs Argo CD into a dedicated namespace (argocd) via Helm.
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitops-pipeline
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL : "https://github.com/hanifshaker/gitops-pipeline" # Change here
+    targetRevision: HEAD
+    path: gitops-pipeline
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

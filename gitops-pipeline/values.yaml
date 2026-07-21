@@ -1,0 +1,13 @@
+image:
+  repository: hanifshaker/gitops-pipeline
+  tag: 918dbed
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 8080
+ingress:
+  enabled: false
+serviceAccount:
+  enabled: false
+autoscaling:
+  enabled: false

@@ -1,0 +1,48 @@
+---
+# This file consists of GitHub Actions workflow
+name: GitOps Pipeline
+on:
+  # Run this on every git push to the main branch only 
+  push:
+    branches:
+      - main
+
+jobs: 
+  build_and_push:
+    # Tells GitHub to spin up a fresh Ubuntu VM to run these steps
+    runs-on: ubuntu-latest
+    steps:
+        # Essentially runs `git clone` for the repo in the Ubuntu runner
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        # Extracts the first 7 characters of the Git commit hash (SHA) and assigns it to SHORT_SHA variable for unique version tagging
+      - name: Set Short SHA
+        run: |
+          echo "SHORT_SHA=$(echo ${GITHUB_SHA} | cut -c1-7)" >> $GITHUB_ENV
+        # Builds the Docker image from the Dockerfile, tagging it with the unique SHORT_SHA
+        # Change values here
+      - name: Build Docker Image
+        run: |
+          docker build -t hanifshaker/gitops-pipeline:${{ env.SHORT_SHA }} .
+        # Authenticates against Docker Hub using secure tokens stored in GitHub Secrets
+      - name: Login to Dockerhub
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        # Uploads the newly built image to the Docker Hub registry
+        # Change values here
+      - name: Push to Dockerhub
+        run: |
+          docker push hanifshaker/gitops-pipeline:${{ env.SHORT_SHA }}
+        # Sets up Git identity details inside the runner so it has permission to make commits
+        # Change values here
+      - name: Configure Git Author
+        run: |
+          git config --local user.name "hanifshaker"
+        # Finds the "tag:" line in the Helm chart's values.yaml, replaces it with the new SHORT_SHA, commits the change, and pushes it back to GitHub.
+        # Change values here
+      - name: Update Helm Chart with new image tag
+        run: |
+          sed -i "s/tag:.*/tag: ${{ env.SHORT_SHA }}/" ./gitops-pipeline/values.yaml
+          git add ./gitops-pipeline/values.yaml
+          git commit -m "Updated image tag to ${{ env.SHORT_SHA }}"
+          git push
