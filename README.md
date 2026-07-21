@@ -31,18 +31,29 @@ GitOps automates deployments and enforces changes through merge or pull requests
  - **ArgoCD:** Continuously monitors the Git repo and automatically syncs the k8s cluster with the latest Helm chart (GitOps).
 </div>
 
+> [!TIP]
+> ***GitHub Actions must be granted read and write permissions which can be configured in your repo's Settings.***
+
+
 ## :warning: Prerequisites
 > [!IMPORTANT]
 > ***Ensure that you have the above tools installed locally and added to your system path.***
- ### 1. Generate Docker Hub tokens:
+
+ ### 1. Create Acess Tokens :
+ - Go to your profile Settings
+ - `Credentials` > `Personal access tokens (classic)` > `Generate new token (classic)`
+ - Grant all access for `repo`
+
+ ### 2. Generate Docker Hub Tokens:
  - Login to Docker Hub
- - `Account Settings` > `Personal access tokens` > `Access permissions:` Read, Write, Delete
+ - `Account Settings` > `Personal access tokens` > `Access permissions: Read, Write, Delete`
  - Generate and copy the tokens for the next step
 
- ### 2. Create GitHub Secrets:
+ ### 3. Create GitHub Secrets:
  - Navigate to your repo's Settings
  - Under `Security` > `Secrets and variables` > `Actions` > `New repository secret`
  - Create `DOCKERHUB_TOKEN` and `DOCKERHUB_USERNAME` with the corresponding values
+
 
 ## :arrow_forward: How to Run
 <div style='text-align: justify;'>

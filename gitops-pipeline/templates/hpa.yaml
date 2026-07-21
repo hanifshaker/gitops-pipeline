@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "complete-devops-project-time-printer.fullname" . }}
+  name: {{ include "gitops-pipeline.fullname" . }}
   labels:
-    {{- include "complete-devops-project-time-printer.labels" . | nindent 4 }}
+    {{- include "gitops-pipeline.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "complete-devops-project-time-printer.fullname" . }}
+    name: {{ include "gitops-pipeline.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
