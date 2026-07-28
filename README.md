@@ -53,6 +53,7 @@ GitOps automates deployments and enforces changes through merge or pull requests
  - Create `DOCKERHUB_TOKEN` and `DOCKERHUB_USERNAME` with the corresponding values
 
 </br>
+
 ## :arrow_forward: How to Run
 
 ```
