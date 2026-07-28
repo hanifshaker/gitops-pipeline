@@ -1,6 +1,6 @@
 image:
   repository: hanifshaker/gitops-pipeline
-  tag: e0503e4
+  tag: 7a836a8
   pullPolicy: IfNotPresent
 service:
   type: ClusterIP
