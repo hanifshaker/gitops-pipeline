@@ -1,4 +1,4 @@
-# This file installs Argo CD into a dedicated namespace (argocd) via Helm.
+# This file creates an Argo CD Application called gitops-pipeline
 
 apiVersion: argoproj.io/v1alpha1
 kind: Application
