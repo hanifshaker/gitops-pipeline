@@ -52,31 +52,30 @@ GitOps automates deployments and enforces changes through merge or pull requests
  - Under `Security` > `Secrets and variables` > `Actions` > `New repository secret`
  - Create `DOCKERHUB_TOKEN` and `DOCKERHUB_USERNAME` with the corresponding values
 
-
+</br>
 ## :arrow_forward: How to Run
 
+```
+# 1. Setup Environments  
+terraform init, plan, apply 
 
-### 1. Setup Environments  
-`terraform init, plan, apply`  
-### 2. Open localhost:8081 for ArgoCD  
-`kubectl port-forward svc/argocd-server -n argocd 8081:443`  
-### 3. Get the password for ArgoCD, default username being 'admin'  
-`kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d`  
-## 4. Login to ArgoCD (could also be done via browser)  
-`argocd login localhost:8081 --username --password <the_password> --insecure`  
-### 5. Add the repo   
-`argocd repo add <github_repo_url> --username <your_username> --password "<github_access_tokens>" --server localhost:8081 --insecure`  
-### 6. Create the ArgoCD app  
-`kubectl apply -f argocd.yaml`  
-### 7. List all k8s pods  
-`kubectl get pods --all-namespaces`  
-### 8. Open localhost:8080 for app.py  
-`kubectl port-forward pod/<gitops-pipeline-...> -n default 8080:8080`
+# 2. Open localhost:8081 for ArgoCD  
+kubectl port-forward svc/argocd-server -n argocd 8081:443  
 
+# 3. Get the password for ArgoCD, default username being 'admin'  
+kubectl get secret argocd-initial-admin-secret -n argocd -o jsonpath="{.data.password}" | base64 -d
 
- 
+# 4. Login to ArgoCD (could also be done via browser)  
+argocd login localhost:8081 --username --password <the_password> --insecure  
 
+# 5. Add the repo   
+argocd repo add <github_repo_url> --username <your_username> --password "<github_access_tokens>" --server localhost:8081 --insecure  
 
+# 6. Create the ArgoCD app  
+kubectl apply -f argocd.yaml  
 
+# 7. List all k8s pods  
+kubectl get pods --all-namespaces  
 
-
+# 8. Open localhost:8080 for app.py  
+kubectl port-forward pod/<gitops-pipeline-...> -n default 8080:8080
