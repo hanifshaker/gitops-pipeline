@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Flask App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Interactive Flask Demo</h1>
+
+<input id="name" placeholder="Enter your name">
+<button onclick="sendName()">Say Hello</button>
+
+<div id="result"></div>
+
+<script>
+async function sendName() {
+    const name = document.getElementById("name").value;
+
+    const response = await fetch("/hello", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({name})
+    });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerText = data.message;
+}
+</script>
+
+</body>
+</html>
