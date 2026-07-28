@@ -1,6 +1,7 @@
 # :microscope: GitOps Pipeline
 
-<img width="870" height="489" alt="image" src="https://github.com/user-attachments/assets/77ff7670-b755-4f92-86ac-e0e6ef0ac4c6" />
+<img width="1365" height="768" alt="architecture" src="https://github.com/user-attachments/assets/03d5b6ba-8d39-4e30-9f81-4042a225b2c3" />
+
 </br>
 </br>
 
