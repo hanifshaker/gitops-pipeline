@@ -22,7 +22,7 @@ GitOps automates deployments and enforces changes through merge or pull requests
 
 <div style='text-align: justify;'>
 
- - **Flask:** A simple local web app that displays the current datetime.
+ - **Flask:** A simple interactive local web app.
  - **Docker:** Packages the app and its dependencies into a portable container image.
  - **Docker Hub:** Stores versioned Docker images for k8s to pull during deployment.
  - **k8s (Minikube):** Runs and manages the app containers, performing rolling updates and maintaining the desired app state.
@@ -37,7 +37,7 @@ GitOps automates deployments and enforces changes through merge or pull requests
 > [!IMPORTANT]
 > ***Ensure that you have the above tools installed locally and added to your system path.***
 
- ### Create Acess Tokens :
+ ### Create Access Tokens :
  - Go to your profile Settings
  - `Credentials` > `Personal access tokens (classic)` > `Generate new token (classic)`
  - Grant all access for `repo`
@@ -52,7 +52,6 @@ GitOps automates deployments and enforces changes through merge or pull requests
  - Under `Security` > `Secrets and variables` > `Actions` > `New repository secret`
  - Create `DOCKERHUB_TOKEN` and `DOCKERHUB_USERNAME` with the corresponding values
 
-</br>
 
 ## :arrow_forward: How to Run
 
